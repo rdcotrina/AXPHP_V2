@@ -54,7 +54,7 @@
         <link rel="apple-touch-startup-image" href="<?php echo $rutaLayout['img']; ?>splash/ipad-portrait.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)">
         <link rel="apple-touch-startup-image" href="<?php echo $rutaLayout['img']; ?>splash/iphone.png" media="screen and (max-device-width: 320px)">
         
-        <link rel="stylesheet" type="text/css" media="screen" href="<?php echo $rutaLayout['img']; ?>public/css/general.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="<?php echo $rutaLayout['root']; ?>public/css/general.css">
         
         <link rel="stylesheet" type="text/css" media="screen" href="<?php echo $rutaLayout['root']; ?>public/css/menuRight/menuRight.css">
         

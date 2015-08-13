@@ -13,7 +13,7 @@ use System\Tools,
 
 class Model {
     
-    public static function loadModel($file='',$mod='') {
+    public static function loadModel($file,$mod='') {
         $module     = strtolower(substr(basename($file,'.php'),0,-10));
         $model      = (empty($mod))?$module:$mod;
         $nameModel  = Tools::capitalize($model);
@@ -22,7 +22,7 @@ class Model {
         
         if(is_readable($urlModel)){
             require_once $urlModel;
-            $class = 'new \\'.$nameModel.'\\Models\\'.$nameModel.'Model();';
+            $class = 'new \\'.$nameModel.'\\Models\\'.$nameModel.'Model();';    #clase con namespace
             
             return eval($class);    /*retorna instancia del objeto*/
         }else{

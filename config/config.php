@@ -47,3 +47,5 @@ function autoloadCore($class){
 /*se registra la funcion autoload*/
 spl_autoload_register('autoloadCore'); 
 //spl_autoload_register('autoloadLibs');
+
+require_once ROOT.'lang/php/lang_'.APP_LANG.'.php';
