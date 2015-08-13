@@ -8,15 +8,14 @@ namespace System;
  * @author DAVID
  */
 
-use System\Tools,
-    Exception;
+use Exception;
 
 class Model {
     
-    public static function loadModel($file,$mod='') {
+    final public static function loadModel($file,$mod='') {
         $module     = strtolower(substr(basename($file,'.php'),0,-10));
         $model      = (empty($mod))?$module:$mod;
-        $nameModel  = Tools::capitalize($model);
+        $nameModel  = Obj()->Tools->capitalize($model);
 
         $urlModel = ROOT . DEFAULT_APP_FOLDER . DS . $module . DS .'models' . DS . $nameModel.'Model.php';
         

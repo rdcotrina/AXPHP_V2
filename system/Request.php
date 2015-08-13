@@ -7,7 +7,7 @@ namespace System;
  *
  * @author DAVID
  */
-class Request {
+final class Request {
     
     private $_module;
     private $_controller;

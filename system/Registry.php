@@ -41,13 +41,13 @@ final class Registry {
     /*
      * Para el registro de nuestras clases
      */
-    public static function addClass($class){echo $class;
+    public static function addClass($class,$namespace){
         self::init();
         if(!self::$get->$class){
             /*el objeto se instancia solo una vez*/
-            self::$get->$class = new $class;
+            self::$get->$class = new $namespace;
         }else {  
-            throw new Exception('Error: Clase <b>'.$class.'</b> ya se registro.');
+            throw new Exception('Error: Clase <b>'.$class.'</b> ya se registro. Acceda con <b>Obj::run()->NAMECLASS</b>');
         }  
     }
     

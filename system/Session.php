@@ -7,7 +7,7 @@ namespace System;
  *
  * @author DAVID
  */
-class Session {
+final class Session {
     
     public static function init(){
         session_start();

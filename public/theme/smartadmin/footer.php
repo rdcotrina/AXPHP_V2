@@ -112,7 +112,7 @@
     var inactvo = function(){};
 </script>
 
-<?php if(Session::get('sys_usuario')):?>
+<?php if(Obj()->Session->get('sys_usuario')):?>
 <script>
     /*evento para bloquear por inactividad*/
     var activityTimeout = 0;

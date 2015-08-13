@@ -7,25 +7,22 @@ namespace Index\Controllers;
  *
  * @author DAVID
  */
-use System\Controller,
-    System\Session,
-    System\Model,
-    System\View;
+use System\Controller;
 
 class IndexController extends Controller{
     
     private static $modelIndex;
 
     public function __construct() {
-        self::$modelIndex = Model::loadModel(__FILE__);
+        self::$modelIndex = Obj()->Model->loadModel(__FILE__);
     }
 
     public function index() {
-        if(Session::get('sys_idUsuario')){  
-            Session::set('sys_menu', $this->getMenu());
-            View::render('index',false);
+        if(Obj()->Session->get('sys_idUsuario')){  
+            Obj()->Session->set('sys_menu', $this->getMenu());
+            Obj()->View->render('index',false);
         }else{
-            View::render('login',false);
+            Obj()->View->render('login',false);
         }
     }
     

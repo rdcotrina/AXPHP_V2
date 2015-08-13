@@ -7,8 +7,7 @@ namespace System;
  *
  * @author DAVID
  */
-use Exception,
-    System\Request;
+use Exception;
 
 final class View {
     
@@ -30,9 +29,7 @@ final class View {
             $vista = $last_call['function'];
         }
         
-        $request = new Request();
-        
-        $urlVista = ROOT . DEFAULT_APP_FOLDER . DS . $request->getModule() . DS . 'views' . DS . $vista . '.phtml';
+        $urlVista = ROOT . DEFAULT_APP_FOLDER . DS . Obj()->Request->getModule() . DS . 'views' . DS . $vista . '.phtml';
         
         if(is_readable($urlVista)){
             if($ajax){

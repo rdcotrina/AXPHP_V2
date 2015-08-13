@@ -11,13 +11,13 @@ use Exception;
 
 final class Bootstrap {
     
-    public static function run(Request $peticion) {
-        $module     = $peticion->getModule();
-        $controller = $peticion->getController() . 'Controller';
-        $method     = $peticion->getMethod();
-        $args       = $peticion->getArgs(); 
-        $filter     = $peticion->getController() . 'Filter';
-        $namespace  = '\\'.$peticion->getController().'\\Controllers\\'.$controller;    #namespace del ocntrolador
+    public static function run() {
+        $module     = Obj()->Request->getModule();
+        $controller = Obj()->Tools->capitalize(Obj()->Request->getController()) . 'Controller';
+        $method     = Obj()->Request->getMethod();
+        $args       = Obj()->Request->getArgs(); 
+        $filter     = Obj()->Tools->capitalize(Obj()->Request->getController()) . 'Filter';
+        $namespace  = '\\'.Obj()->Tools->capitalize(Obj()->Request->getController()).'\\Controllers\\'.$controller;    #namespace del ocntrolador
         
         $urlController  = ROOT . DEFAULT_APP_FOLDER . DS . $module. DS . 'controllers' . DS . $controller . '.php';
         $urlFilter      = ROOT . DEFAULT_APP_FOLDER . DS . $module. DS . 'filters' . DS . $filter . '.php';
@@ -29,16 +29,16 @@ final class Bootstrap {
         
         if (is_readable($urlController)) {
             require_once ($urlController);
-            $controller = new $namespace;   #instanciando clase con namespace
+            Obj()->Registry->addClass($controller,$namespace); #registro de clase
             
-            if (!is_callable(array($controller, $method))) {
+            if (!is_callable(array(Obj()->$controller, $method))) {
                 throw new Exception('Error de M&eacute;todo: <b>'.$method.'</b> no encontrado.');
             }
 
             if (isset($args)) {
-                call_user_func_array(array($controller, $method), $args);
+                call_user_func_array(array(Obj()->$controller, $method), $args);
             } else {
-                call_user_func(array($controller, $method));
+                call_user_func(array(Obj()->$controller, $method));
             }
             
             

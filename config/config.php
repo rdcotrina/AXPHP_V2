@@ -48,4 +48,15 @@ function autoloadCore($class){
 spl_autoload_register('autoloadCore'); 
 //spl_autoload_register('autoloadLibs');
 
+
+
+use System\Obj;
+/*
+ * Funcion que retorna objeto con el cual permite acceder a todas las clases registradas
+ * Es de ambito general, funciona en todo el sistema
+ */
+function Obj(){
+    return Obj::run();
+}
+
 require_once ROOT.'lang/php/lang_'.APP_LANG.'.php';
