@@ -1,4 +1,4 @@
-var axExe_ = function() {
+var Exe_ = Class.extend(function() {
 
     var _private = {};
 
@@ -14,8 +14,18 @@ var axExe_ = function() {
 
     _private.jsArrayId = {};
 
-    _private.createScript = function(scriptId, scriptName, callback) {
-        scriptId = scriptId.replace(/\//g, ""); 
+    _private.createModel = function(scriptName,callback){
+        var ex = scriptName.toLowerCase().search('controller');
+        if(ex > 0){
+            var scriptNameModel = scriptName.substr(0,scriptName.length - 10)+'Model';
+            var scriptIddModel  = scriptNameModel.substr(scriptNameModel.lastIndexOf('/') + 1,150);
+ 
+            _private.createScript(scriptIddModel, scriptNameModel, callback);
+        }
+    };
+    
+    _private.createScript = function(scriptIdd, scriptName, callback) {
+        var scriptId = scriptIdd.replace(/\//g, ""); 
         var myRand   = parseInt(Math.random()*999999999999999);
         /*verificar si archivo existe*/
         var body = document.getElementsByTagName('body')[0];
@@ -28,11 +38,12 @@ var axExe_ = function() {
         // then bind the event to the callback function
         // there are several events for cross browser compatibility
         //script.onreadystatechange = callback;
-        script.onload = callback;
+        script.onload = (callback !== undefined)?callback:null;
 
         body.appendChild(script);
         /*DESCOMENTAR CUANDO ESTE EN PRODUCCION*/
         $('#script_' + scriptId).remove();
+        
     };
 
     _private.executeMain = function(scriptId) {
@@ -42,18 +53,18 @@ var axExe_ = function() {
         }
     };
 
-    var _publico = {};
+    var _public = {};
 
     /*devuelve la raiz absoluta de la opcion*/
-    _publico.getRoot = function() {
+    _public.getRoot = function() {
         return _private.breadcrumb;
     };
     
-    _publico.getTitle = function() {
+    _public.getTitle = function() {
         return _private.title;
     };
-
-    _publico.init = function(scriptName, tthis) {
+    /*se ejecuta desde DB*/
+    _public.run = function(scriptName, tthis) {
         var parent0 = $(tthis).parent().parent().parent().parent().parent().parent().parent().parent().parent().find('a').find('span').html();
         var parent1 = $(tthis).parent().parent().parent().parent().parent().parent().find('a').html();
         var parent2 = $(tthis).parent().parent().parent().find('a').html();
@@ -80,7 +91,7 @@ var axExe_ = function() {
     };
 
     /*para incluir archivos*/
-    _publico.require = function(requires,callback){
+    _public.require = function(requires,callback){
         if(requires instanceof Object === true){
             for(var i in requires){
                 /*verificar si es un array*/
@@ -88,7 +99,8 @@ var axExe_ = function() {
                     for(var x in requires[i]){
                         if (!_private.jsArray[requires[i][x]]) {
                             _private.jsArray[requires[i][x]] = true;
-                            var scriptName = _private.root(i) + requires[i][x]; 
+                            var scriptName = _private.root(i) + requires[i][x];
+                            
                             _private.createScript(requires[i][x], scriptName,callback);
                         }
                     }
@@ -96,6 +108,7 @@ var axExe_ = function() {
                     if (!_private.jsArray[requires[i]]) {
                         _private.jsArray[requires[i]] = true;
                         var scriptName = _private.root(i) + requires[i]; 
+
                         _private.createScript(requires[i], scriptName,callback);
                     }
                 }
@@ -105,12 +118,26 @@ var axExe_ = function() {
             if (!_private.jsArray[requires]) { 
                 _private.jsArray[requires] = true;
                 var scriptName = requires; 
+
                 _private.createScript(requires, scriptName,callback);
             }
         }
         
     };
     
-    return _publico;
-};
-var axExe = new axExe_();
+    _public.include = function(obj){
+        var i = '\n\
+        Exe.require({\n\
+            '+obj.folder+': "'+obj.file+'View"\n\
+        },function(){\n\
+            Exe.require({\n\
+                '+obj.folder+': "'+obj.file+'Script"\n\
+            });\n\
+        });';
+        eval(i);
+    };
+    
+    return _public;
+    
+}());
+var Exe = new Exe_();

@@ -21,7 +21,7 @@ define('DB_ENTORNO','D');                                                   #D=D
 define('DB_MOTOR','mysql');
 define('DB_HOST','localhost');
 define('DB_USER','root');
-define('DB_PASS','');
+define('DB_PASS','mariaDB');
 define('DB_NAME','ax_v2');
 
 define('DB_PORT','3306');
@@ -47,7 +47,6 @@ function autoloadCore($class){
 /*se registra la funcion autoload*/
 spl_autoload_register('autoloadCore'); 
 //spl_autoload_register('autoloadLibs');
-
 
 
 use System\Obj;

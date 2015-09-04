@@ -59,6 +59,7 @@
         <link rel="stylesheet" type="text/css" media="screen" href="<?php echo $rutaLayout['root']; ?>public/css/menuRight/menuRight.css">
         
         <script src="<?php echo $rutaLayout['js']; ?>plugin/pace/pace.min.js"></script>
+        <script src="<?php echo $rutaLayout['js']; ?>libs/jquery-2.0.2.min.js"></script>
         <script>
             var tostring;
         </script>

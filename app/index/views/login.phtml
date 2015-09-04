@@ -105,3 +105,29 @@
     </div>
 
 </div>
+<script>
+$(function() {
+    $("#login-form").validate({
+        // Rules for form validation
+        rules: {
+            txtUser: {
+                required: true,
+                email: true
+            },
+            txtClave: {
+                required: true,
+                minlength: 3,
+                maxlength: 20
+            }
+        },
+ 
+        // Do not change code below
+        errorPlacement: function(error, element) {
+            error.insertAfter(element.parent());
+        },
+        submitHandler: function() {
+            Login.postLogin();
+        }
+    });
+});
+</script>

@@ -1,4 +1,5 @@
-var axScript_ = function() {
+var Tools = Class.extend(function() {
+    
     /*metodos y variables privadas*/
     var _private = {};
 
@@ -23,7 +24,7 @@ var axScript_ = function() {
     /*para remover eventos de elementos y cargarlos con jquery*/
     /*
      * @uso
-     *       axScript.removeAttr.click({
+     *       Tools.removeAttr.click({
      *           container: '#content',
      *           typeElement: 'button, a ,input ...'
      *       });
@@ -238,7 +239,7 @@ var axScript_ = function() {
      * @param {type} obj
      * @returns {undefined}
      * @uso 
-     *       axScript.listBox({
+     *       Tools.listBox({
      *           data: data,
      *           optionSelec: true,
      *           content: 'content',
@@ -324,7 +325,7 @@ var axScript_ = function() {
     };
 
     /*
-     *      axScript.addTab({
+     *      Tools.addTab({
      *           id : 'xxxxxxx',
      *           label: 'titulo',
      *           content: '----',
@@ -356,7 +357,7 @@ var axScript_ = function() {
      * @param {type} tab
      * @returns {undefined}
      * @uso:
-     *      axScript('tab');
+     *      Tools('tab');
      */
     _public.activeTab = function(tab){
         $('#li-' + tab).find('a').click();
@@ -419,7 +420,7 @@ var axScript_ = function() {
      * @param {type} obj
      * @returns {Boolean}
      * @uso:
-     *       axScript.validaCheckBox({
+     *       Tools.validaCheckBox({
      *           id: '#tabla',
      *           msn: 'mensaje',
      *           fnCallback: function(){
@@ -437,7 +438,7 @@ var axScript_ = function() {
             }
         });
         if (marca === 0) {
-            axScript.notify.error({
+            Tools.notify.error({
                 content: obj.msn
             });
             return false;
@@ -468,7 +469,7 @@ var axScript_ = function() {
      * @param {type} form
      * @returns {undefined}
      * @uso:
-     *  axScript.setInput({ALIAStxt_idpersona:'dato_1', ALIAStxt_cliente:'dato_2'},'#ALIASformulario');
+     *  Tools.setInput({ALIAStxt_idpersona:'dato_1', ALIAStxt_cliente:'dato_2'},'#ALIASformulario');
      */
     _public.setInput = function(obj, form) {
         for (var i in obj) {
@@ -483,7 +484,7 @@ var axScript_ = function() {
      * @param {type} obj
      * @returns {String}
      * @uso:
-     *  axScript({
+     *  Tools({
      *      rows: 10,
      *      cols: 5
      *  });
@@ -544,9 +545,9 @@ var axScript_ = function() {
 
     return _public;
 
-};
+}());
 
-var axScript = new axScript_();
+var Tools = new Tools();
 
 /*agregar eventos a boton cerrar de TABS de cada opcion*/
-axScript.closeTabs();
+Tools.closeTabs();

@@ -1,5 +1,5 @@
 var httpR;
-var axAjax_ = function(){
+var Ajax = Class.extend(function(){
     /*metodos y variables privadas*/
     var _private = {};
     
@@ -109,7 +109,7 @@ var axAjax_ = function(){
                         if(data.error !== undefined){
                             msn = data.error;
                         }
-                        axScript.notify.error({
+                        Tools.notify.error({
                             content: msn
                         });
                         er = 0;
@@ -143,7 +143,26 @@ var axAjax_ = function(){
         return Aes.Ctr.get(c, 256);
     };
     
+    /*
+     * Recorre los metodos publicos de un objeto (clase) js 
+     * y lo devuelve segun la posicion
+     * uso :    Tools.getMethod(this,3);
+     * @param {type} obj
+     * @param {type} index
+     * @returns {unresolved}
+     */
+    _public.__method__ = function(obj,index){
+        var j = 0,
+            m;
+        for(var i in obj){
+            j++;
+            if(j === index){
+                m = i;
+                break;
+            }
+        }
+        return m;
+    };
+    
     return _public;
-};
-  
-var axAjax = new axAjax_();
+}());

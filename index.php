@@ -6,6 +6,7 @@ define('ROOT',  realpath(dirname(__FILE__)) . DS);
 require_once (ROOT . 'config' . DS . 'config.php');
 
 use System\Registry;
+use Libs\Aes;
 
 try{
     /*registro de clases*/
@@ -16,6 +17,8 @@ try{
     Registry::addClass('Request','\\System\\Request');
     Registry::addClass('Bootstrap','\\System\\Bootstrap');
     Registry::addClass('Tools','\\System\\Tools');
+//    Registry::addClass('Aes','\\Libs\\Aes');
+//    Registry::addClass('AesCtr','\\Libs\\AesCtr');
     
     Obj()->Session->init();
     

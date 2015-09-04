@@ -1,8 +1,6 @@
 </body>
 
 <!-- #PLUGINS -->
-    <script src="<?php echo $rutaLayout['js']; ?>libs/jquery-2.0.2.min.js"></script> 
-
     <script src="<?php echo $rutaLayout['js']; ?>libs/jquery-ui-1.10.3.min.js"></script> 
 
     <!-- IMPORTANT: APP CONFIG -->
@@ -64,8 +62,9 @@
     <!-- Voice command : plugin -->
     <script src="<?php echo $rutaLayout['js']; ?>speech/voicecommand.min.js"></script>
     
-    <!-- SCRIPT AXPHP -->
-    <script src="<?php echo $rutaLayout['root']; ?>system/axphp/axExe.js"></script>
+    <!-- SCRIPT CORE -->
+    <script src="<?php echo $rutaLayout['root']; ?>system/core/Class.js"></script>
+    <script src="<?php echo $rutaLayout['root']; ?>system/core/Exe.js"></script>
     
     <!-- SCRIPT DATAGRID -->
     <script src="<?php echo $rutaLayout['root']; ?>public/js/dataGrid/dataGrid.jquery.js"></script>
@@ -110,13 +109,31 @@
    
    /*si no esta logueado, bloqueo de pantalla no se activa*/
     var inactvo = function(){};
+
+    /*contenedor de html null, para bloqueadr app*/
+    localStorage.setItem('mainBodyHtml',null);
+    
+    /*cargar requires*/
+    Exe.require("lang/js/lang_ES");
+    Exe.require("system/core/Tools");
+    Exe.require("system/core/Ajax",function(){
+        var $ajax = new Ajax();
+        tostring = $ajax.cadena();
+        Exe.require({index: 'IndexView'});
+        Exe.require({index: 'LoginView'});        
+    });
+    Exe.require("libs/Aes/js/aes",function(){
+        Exe.require("libs/Aes/js/aesctr");
+    });    
+    Exe.require("libs/Aes/js/base64");
+    Exe.require("libs/Aes/js/utf8");
+    
 </script>
 
 <?php if(Obj()->Session->get('sys_usuario')):?>
 <script>
     /*evento para bloquear por inactividad*/
-    var activityTimeout = 0;
-    
+    var activityTimeout = 0;    
     var inactvo = function() {
         var activityTimeout = null;
         $(document).mousemove(function(event) {
@@ -141,27 +158,3 @@
     $.root_.removeClass("container");
 </script>
 <?php endif; ?>
-<script>
-    /*contenedor de html null, para bloqueadr app*/
-    localStorage.setItem('mainBodyHtml',null);
-    
-    /*cargar requires*/
-    axExe.require("lang/js/lang_ES");
-    axExe.require("system/axphp/axScript");
-    axExe.require("system/axphp/axAjax",function(){
-        tostring = axAjax.cadena();
-    });
-    axExe.require("libs/Aes/js/aes",function(){
-        axExe.require("libs/Aes/js/aesctr");
-    });    
-    axExe.require("libs/Aes/js/base64");
-    axExe.require("libs/Aes/js/utf8");
-//    axExe.require({
-//        index: 'Login'
-//    });
-//    axExe.require({
-//        index: 'Index'
-//    },function(){
-//        //inactvo();
-//    });
-</script>
