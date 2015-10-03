@@ -1,10 +1,10 @@
-Exe.require({index: 'LoginScript'});
+Exe.require({login: 'LoginScript'});
 var LoginView = Ajax.extend(function(){
     
     var _private = {};
 
     _private.config = {
-        controller: 'index/Login/'
+        controller: 'login/Login/'
     };
     
     _private.usuario = '';

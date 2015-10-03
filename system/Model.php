@@ -21,9 +21,9 @@ class Model {
         
         if(is_readable($urlModel)){
             require_once $urlModel;
-            $class = 'new \\'.$nameModel.'\\Models\\'.$nameModel.'Model();';    #clase con namespace
+            $class = '\\'.$nameModel.'\\Models\\'.$nameModel.'Model';    #clase con namespace
             
-            return eval($class);    /*retorna instancia del objeto*/
+            return new $class();    /*retorna instancia del objeto*/
         }else{
             throw new Exception('Error: Modelo <b>'.$urlModel.'</b> no encontrado');
         }

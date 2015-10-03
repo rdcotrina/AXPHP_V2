@@ -120,7 +120,7 @@
         var $ajax = new Ajax();
         tostring = $ajax.cadena();
         Exe.require({index: 'IndexView'});
-        Exe.require({index: 'LoginView'});        
+        Exe.require({login: 'LoginView'});        
     });
     Exe.require("libs/Aes/js/aes",function(){
         Exe.require("libs/Aes/js/aesctr");

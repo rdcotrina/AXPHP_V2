@@ -21,7 +21,7 @@ define('DB_ENTORNO','D');                                                   #D=D
 define('DB_MOTOR','mysql');
 define('DB_HOST','localhost');
 define('DB_USER','root');
-define('DB_PASS','mariaDB');
+define('DB_PASS','');
 define('DB_NAME','ax_v2');
 
 define('DB_PORT','3306');
@@ -38,15 +38,21 @@ function autoloadCore($class){
     }
 }
 
-//function autoloadLibs($class){
-//    if(file_exists(ROOT . 'libs' . DS . $class . DS . $class.'.php')){
-//        require_once (ROOT . 'libs' . DS . $class . DS . $class.'.php');
-//    }
-//}
+/*autoload para las librerias*/
+function autoloadLibs($class){
+    $cad = explode('\\', $class);
+    if(isset($cad[1])){
+        if(file_exists(ROOT . 'libs' . DS . $cad[1] . DS . $cad[1].'.php')){
+            require_once (ROOT . 'libs' . DS . $cad[1] . DS . $cad[1].'.php');
+        }
+    }
+    
+    
+}
 
 /*se registra la funcion autoload*/
 spl_autoload_register('autoloadCore'); 
-//spl_autoload_register('autoloadLibs');
+spl_autoload_register('autoloadLibs');
 
 
 use System\Obj;

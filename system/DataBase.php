@@ -7,23 +7,28 @@ namespace System;
  *
  * @author DAVID
  */
-class DataBase {
+use Exception,
+    PDO;
+
+class DataBase extends DataBaseProvider{
     
     protected $_db;
-    
+    protected $rowCount;
+
     public function __construct() {
-        $this->_db = Obj::run()->DatabaseProvider;
+        $this->_db = parent::__construct();
         
-        /*obtener la clase que hereda a Database;*/
-        $e = new Exception();
-        $trace = $e->getTrace();
-        $last_call = $trace[1]; 
-        $class = $last_call['class'];
-                
-        Registry::addClass($class);             /*se registra modelo donde se extiende Database*/ 
+        /*obtener la clase que hereda a Database;es para registrar el Model*/
+//        $e = new Exception();
+//        $trace = $e->getTrace();
+//        $last_call = $trace[1]; 
+//        $class = $last_call['class'];
+//        
+//        
+//        Registry::addClass('Login','\\Login\\Models\\LoginModel');             /*se registra modelo donde se extiende Database*/ 
     }
     
-    final public function execute($query,$arrayValues){
+    final protected function execute($query,$arrayValues){
         try{
             $statement = $this->_db->prepare($query);
             $statement->execute($arrayValues);
@@ -46,7 +51,7 @@ class DataBase {
         }
     }
     
-    final public function queryOne($query,$arrayValues){
+    final protected function queryOne($query,$arrayValues){
         try{
             $statement = $this->_db->prepare($query);
             $statement->execute($arrayValues);
@@ -55,6 +60,7 @@ class DataBase {
 
             if($bug[0] == '00000'){// ok
                 $result = $statement->fetch(PDO::FETCH_ASSOC);
+                $this->rowCount = $statement->rowCount();
             }else{//error
                 if(DB_ENTORNO == 'D'){
                     $result = array('error'=>'ERROR:: '.$bug[2]);
@@ -69,7 +75,7 @@ class DataBase {
         }
     }
     
-    final public function queryAll($query,$arrayValues){
+    final protected function queryAll($query,$arrayValues){
         try{
             $statement = $this->_db->prepare($query);
             $statement->execute($arrayValues);
@@ -78,6 +84,7 @@ class DataBase {
 
             if($bug[0] == '00000'){// ok
                 $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+                $this->rowCount = $statement->rowCount();
             }else{//error
                 if(DB_ENTORNO == 'D'){
                     $result = array('error'=>'ERROR:: '.$bug[2]);

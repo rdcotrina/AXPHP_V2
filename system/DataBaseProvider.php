@@ -1,11 +1,5 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 namespace System;
 
 /**
@@ -13,14 +7,18 @@ namespace System;
  *
  * @author DAVID
  */
-final class DataBaseProvider extends PDO{
+
+use PDO,
+    Exception;
+
+class DataBaseProvider{
     
     private static $_instancias = array();
     
     public function __construct() {
         self::$_instancias[] = $this;
         if(count(self::$_instancias) == 1){
-            parent::__construct(
+            return new \PDO(
                 self::dns(), 
                 DB_USER, 
                 DB_PASS, 
@@ -31,7 +29,7 @@ final class DataBaseProvider extends PDO{
                 )
             );
         }else{
-            throw new Exception('Error: class Database ya se instancio; para acceder a la instancia ejecutar: Obj::run()->NOMBRE_REGISTRO');
+            throw new Exception('Error: class DataBaseProvider ya se instancio; para acceder a la instancia ejecutar: Obj()->NOMBRE_REGISTRO');
         }
     }
     
